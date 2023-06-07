@@ -14,9 +14,10 @@ import kh.lclass.oop.sample.Car;
 
 public class TestCollection {
 	
-	public <E> String testGeneric(E a) {
+	public <E extends Number, J> String testGeneric(E a, J b) {
 		System.out.println(a.getClass().getName());
-		return a.toString()+"결과값";
+		System.out.println(b.getClass().getName());
+		return a.toString()+"결과값"+ b.toString();
 	}
 	
 	
