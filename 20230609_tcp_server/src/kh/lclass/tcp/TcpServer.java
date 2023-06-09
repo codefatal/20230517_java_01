@@ -35,7 +35,7 @@ public class TcpServer {
 				String receivedMsg = null;
 				while((receivedMsg = br.readLine())!=null) {
 					System.out.println("받은 메세지 : "+receivedMsg);
-					wr.write("메세지 잘 받았음\n");
+					wr.write("ㅇㅅㅇ\n");
 					wr.flush();
 				}
 			}			
