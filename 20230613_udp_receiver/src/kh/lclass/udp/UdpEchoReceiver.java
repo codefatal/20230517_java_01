@@ -12,7 +12,6 @@ public class UdpEchoReceiver {
 	
 	public void receivedUdp() {
 		int myPort = 6001;
-//		int destPort = 5001;
 		
 		DatagramSocket dSock = null;
 		try {
