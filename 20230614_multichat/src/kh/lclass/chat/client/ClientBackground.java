@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class ClientBackground {
@@ -16,9 +17,9 @@ public class ClientBackground {
 	private ClientGUI gui; //null // = new 하면 안됨.
 	
 	// client가 server에 접속
-	public void connection() {
+	public void connection(String ip) {
 		try {
-			socket = new Socket("127.0.0.1", 7777);
+			socket = new Socket(ip, 7777);
 			// 서버와 입/출력 통로 생성
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -33,7 +34,9 @@ public class ClientBackground {
 				gui.appendMsg(msg);
 			}
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			gui.appendMsg("존재하지 않는 서버입니다.");
+		} catch (SocketException e) {
+			gui.appendMsg("서버와 연결이 끊어졌습니다.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
