@@ -32,14 +32,14 @@ public class ServerBackground {
 			serverSocket = new ServerSocket(7777);
 			// 방문자 접속을 계속 받아들임. 무한반복함. GUI 프로그램 경우 창 닫힐때까지 계속 반복됨. break 없음.
 			while(true) {
-				gui.appendMsg("클라이언트 접속 대기 중");
+				gui.appendMsg("클라이언트 접속 대기 중...");
 				// 접속자 대기 중
 				socket = serverSocket.accept();
 				// 클라이언트 nickname이 바로 이어서 들어옴
 				new Client(socket).start();
 				gui.appendMsg("클라이언트 접속 완료 : "+socket.getPort());
 				count++;
-				gui.appendMsg("현재 접속자 수 :"+count);
+				gui.appendMsg("현재 접속자 수 : "+count);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class ServerBackground {
 		count--;
 		gui.appendMsg(nickname+"님이 접속을 종료했습니다.");
 		sendMsg(nickname+"님이 접속을 종료했습니다.");
-		gui.appendMsg("현재 접속자 수 :"+count);
+		gui.appendMsg("현재 접속자 수 : "+count);
 	}
 	
 	
@@ -113,7 +113,7 @@ public class ServerBackground {
 			while(br!=null) {
 				try {
 					String msg = br.readLine();
-					gui.appendMsg(msg);
+//					gui.appendMsg(msg); // 시크릿
 					sendMsg(msg);
 				} catch(SocketException e) {
 					disconnect(nickname);
