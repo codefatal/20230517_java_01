@@ -18,6 +18,7 @@ public class EvInfoVo {
 	private String lat;
 	private String longi;
 	private String statUpdateDatetime;
+	
 	@Override
 	public String toString() {
 		return "EvInfoVo [addr=" + addr + ", chargeTp=" + chargeTp + ", cpId=" + cpId + ", cpNm=" + cpNm + ", cpStat="
