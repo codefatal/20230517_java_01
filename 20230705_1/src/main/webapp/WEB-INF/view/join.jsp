@@ -7,6 +7,28 @@
 <title>회원가입</title>
 <script type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<style>
+	.hint {
+		font-size: 8px;
+		color: blue;
+		visibility: hidden;
+	}
+</style>
+<script>
+	window.onload = loadedHandler;
+	function loadedHandler() {
+		$("[type=text]").click(inputClickHandler);
+		$("[type=password]").click(inputClickHandler);
+	}
+	
+	function inputClickHandler() {
+		$(".hint").css("visibility", "hidden");
+		
+		var $hintElement = $(this).parent().next(".hint");
+		
+		$hintElement.css("visibility", "visible");
+	}
+</script>
 </head>
 <body>
 	<h1>회원가입</h1>
@@ -16,26 +38,32 @@
 				<tr>
 					<th>아이디</th>
 					<td><input type="text" name="mid" required></td>
+					<td class="hint">아이디는 5-9자 영문자로 시작하고 영문자와 숫자만 입력 가능합니다.</td>
 				</tr>
 				<tr>
 					<th>패스워드</th>
 					<td><input type="password" name="mpwd" required></td>
+					<td class="hint">패스워드를 5-9자 대문자, 소문자, 숫자, 특수문자(!_#)를 1개이상 입력해주세요.</td>
 				</tr>
 				<tr>
 					<th>이름</th>
 					<td><input type="text" name="mname" required></td>
+					<td class="hint">이름은 2-10자 한글만 입력 가능합니다.</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
 					<td><input type="text" name="mtel" required></td>
+					<td class="hint">전화번호는 하이픈(-)을 포함하여 전화번호 양식에 맞게 작성해주세요.</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 					<td><input type="text" name="memail" required></td>
+					<td class="hint">이메일을 @을 포함하여 이메일 양식에 맞게 작성해주세요.</td>
 				</tr>
 				<tr>
 					<th>주민번호</th>
 					<td><input type="text" name="msno" required></td>
+					<td class="hint">주민번호를 하이픈(-)을 포함하여 주민번호 양식에 맞게 작성해주세요.</td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="button" value="회원가입"></td>
