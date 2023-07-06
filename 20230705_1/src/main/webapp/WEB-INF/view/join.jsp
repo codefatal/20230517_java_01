@@ -11,8 +11,7 @@
 <body>
 	<h1>회원가입</h1>
 	<div>
-		<%-- <form action="<%=request.getContextPath() %>/join" method="post"> --%>
-		<form id="frmJoin">
+		<form action="<%=request.getContextPath() %>/join" method="post" id="frmJoin">
 			<table>
 				<tr>
 					<th>아이디</th>
@@ -73,27 +72,28 @@
 				return;
 			}
 			var tel = $("[name=mtel]").val();
-			var regEx_tel = /^01[0126789]-[0-9]{3,4}-[0-9]}{4}$/;
+			var regEx_tel = /^01[0126789][-][0-9]{3,4}[-][0-9]{4}$/;
 			if(!regEx_tel.test(tel)) {
 				alert("전화번호는 하이픈(-)을 포함하여 전화번호 양식에 맞게 작성해주세요.");
 				$("[name=mtel]").focus();
 				return;
 			}
 			var email = $("[name=memail]").val();
-			var regEx_email = /^[A-Za-z0-9]{5,20}@[A-Za-z0-9]{5,20}.[A-Za-z0-9.]{2,20}$/;
+			var regEx_email = /^[A-Za-z0-9]{5,20}[@][A-Za-z0-9]{2,20}[.][A-Za-z0-9.]{2,20}$/;
 			if(!regEx_email.test(email)) {
 				alert("이메일을 @을 포함하여 이메일 양식에 맞게 작성해주세요.");
 				$("[name=memail]").focus();
 				return;
 			}
 			var sno = $("[name=msno]").val();
-			var regEx_sno = /^[0-9]{6}-[1234][0-9]{6}$/;
+			var regEx_sno = /^[0-9]{6}[-][1234][0-9]{6}$/;
 			if(!regEx_sno.test(sno)) {
 				alert("주민번호를 하이픈(-)을 포함하여 주민번호 양식에 맞게 작성해주세요.");
 				$("[name=msno]").focus();
 				return;
 			}
 			
+			$("#frmJoin").submit();
 		}
 		
 	</script>
