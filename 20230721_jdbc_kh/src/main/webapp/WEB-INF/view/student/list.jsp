@@ -10,12 +10,32 @@
 </head>
 <body>
 	<h2>학생 리스트</h2>
+	<div>
+		<form action="<%=request.getContextPath() %>/student/list" method="get">
+			<input type="search" name="searchWord">
+			<input type="submit" value="찾기">
+		</form>
+	</div>
 	<%
 	// JSP Tag - java문법
 	/* String a = (String)request.getAttribute("aaa");
 	String b = (String)request.getAttribute("bbb");
 	int c = (int)request.getAttribute("ccc"); */
 	List<StudentVo> volist = (List<StudentVo>)request.getAttribute("studentList");
+	String searchWord = (String)request.getAttribute("searchWord");
+	if(searchWord != null) {
+		%>
+		<h3><%=searchWord %> 검색결과</h3>
+		<h5><a href="<%=request.getContextPath() %>/student/list">전체보기</a></h5>
+		<%
+	}
+	
+	if(volist == null || volist.size() == 0) {
+		%>
+		<h3>검색결과가 없습니다.</h3>
+		<%
+	} else {
+	
 	%>
 	<%-- <%= a %> --%>
 	<%-- <%= b %> --%>
@@ -42,6 +62,17 @@
 		}
 		%>
 	</table>
-	
+	<div>
+	<%
+		for(int i=1; i<=10; i++) {
+	%>
+			<a href="<%=request.getContextPath() %>/student/list?pageNo=<%=i%>"><span><%=i%></span></a>
+	<%
+		}
+	%>
+	</div>
+	<%
+	}
+	%>
 </body>
 </html>

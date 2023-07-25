@@ -18,12 +18,25 @@ public class StudentVo {
 	private String studentSsn;
 	private String studentAddress;
 	private Date entranceDate;
+	private String entranceDateString;
 	private String absenceYn;
 	private String coachProfessorNo;
 	
 	private String departmentName;
 	
-
+	public StudentVo() {}
+	
+	public StudentVo(String studentNo, String departmentNo, String studentName, String studentSsn, String studentAddress, String entranceDateString, String absenceYn, String coachProfessorNo) {
+		this.studentNo = studentNo;
+		this.departmentNo = departmentNo;
+		this.studentName = studentName;
+		this.studentSsn = studentSsn;
+		this.studentAddress = studentAddress;
+		this.entranceDateString = entranceDateString;
+		this.absenceYn = absenceYn;
+		this.coachProfessorNo = coachProfessorNo;
+	}
+	
 	@Override
 	public String toString() {
 		return "StudentVo [studentNo=" + studentNo + ", departmentNo=" + departmentNo + ", studentName=" + studentName
@@ -66,6 +79,12 @@ public class StudentVo {
 	}
 	public void setEntranceDate(Date entranceDate) {
 		this.entranceDate = entranceDate;
+	}
+	public String getEntranceDateString() {
+		return entranceDateString;
+	}
+	public void setEntranceDate(String entranceDateString) {
+		this.entranceDateString = entranceDateString;
 	}
 	public String getAbsenceYn() {
 		return absenceYn;
