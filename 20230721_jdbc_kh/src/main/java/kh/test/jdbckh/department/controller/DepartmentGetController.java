@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.test.jdbckh.department.model.dao.DepartmentDao;
-import kh.test.jdbckh.department.model.vo.DepartmentVo;
+import kh.test.jdbckh.department.model.dto.DepartmentDto;
+import kh.test.jdbckh.department.model.dto.DepartmentVo;
 
 /**
  * Servlet implementation class DepartmentGetController
@@ -33,8 +34,8 @@ public class DepartmentGetController extends HttpServlet {
 		System.out.println(DepartmentNo);
 		// 2. 전달받은 데이터를 활용해 DB학생 상세 정보 가져오기
 		DepartmentDao dao =new DepartmentDao();
-		DepartmentVo vo = dao.selectOneDepartment(DepartmentNo);
-		request.setAttribute("dvo", vo);
+		DepartmentDto dto = dao.selectOneDepartment(DepartmentNo);
+		request.setAttribute("dto", dto);
 		request.getRequestDispatcher("/WEB-INF/view/department/get.jsp").forward(request, response);
 	}
 

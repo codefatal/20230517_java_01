@@ -1,4 +1,4 @@
-<%@page import="kh.test.jdbckh.department.model.vo.DepartmentVo"%>
+<%@page import="kh.test.jdbckh.department.model.dto.DepartmentDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,33 +9,33 @@
 </head>
 <body>
 	<h1>학과 상세 정보</h1>
-	<%-- <%= request.getAttribute("dvo") %> --%>
+	<%-- <%= request.getAttribute("dto") %> --%>
 	<%
-	DepartmentVo vo = null;
-	if(request.getAttribute("dvo") instanceof DepartmentVo){
-		vo = (DepartmentVo)request.getAttribute("dvo");
+	DepartmentDto dto = null;
+	if(request.getAttribute("dto") instanceof DepartmentDto){
+		dto = (DepartmentDto)request.getAttribute("dto");
 	}
 	%>
 	<table border="1">
 		<tr>
 			<td>학과 번호</td>
-			<td><%=vo.getDepartmentNo() %></td>
+			<td><%=dto.getDepartmentNo() %></td>
 		</tr>
 		<tr>
 			<td>학과 이름</td>
-			<td><%=vo.getDepartmentName() %></td>
+			<td><%=dto.getDepartmentName() %></td>
 		</tr>
 		<tr>
 			<td>계열</td>
-			<td><%=vo.getCategory() %></td>
+			<td><%=dto.getCategory() %></td>
 		</tr>
 		<tr>
 			<td>개설여부</td>
-			<td><%=vo.getOpenYn() %></td>
+			<td><%=dto.getOpenYn() %></td>
 		</tr>
 		<tr>
 			<td>정원</td>
-			<td><%=vo.getCapacity() %></td>
+			<td><%=dto.getCapacity() %></td>
 		</tr>
 	</table>
 	

@@ -9,20 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.test.jdbckh.department.model.dao.DepartmentDao;
-import kh.test.jdbckh.department.model.vo.DepartmentVo;
+import kh.test.jdbckh.department.model.dto.DepartmentDto;
+import kh.test.jdbckh.department.model.service.DepartmentService;
 
 /**
- * Servlet implementation class DepartmentListController
+ * Servlet implementation class DepartmentListServlet
  */
-@WebServlet("/department/list")
-public class DepartmentListController extends HttpServlet {
+@WebServlet("/dept/list")
+public class DepartmentListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private final int PAGE_SIZE = 10;
+	private final int PAGE_BLOCK = 5;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepartmentListController() {
+    public DepartmentListServlet() {
         super();
     }
 
@@ -30,18 +33,25 @@ public class DepartmentListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/department/list doGet() 진입");
-		DepartmentDao dao = new DepartmentDao();
-		List<DepartmentVo> result = dao.selectListDepartment();
-		request.setAttribute("departmentList", result);
-		request.getRequestDispatcher("/WEB-INF/view/department/list.jsp").forward(request, response);
+		String searchWord = request.getParameter("searchWord");
+		String pageNoStr = request.getParameter("pageNo");
+		int currentPage = 1;
+		try {
+			currentPage = Integer.parseInt(pageNoStr);
+		} catch (Exception e) {
+		}
+		
+		DepartmentService service = new DepartmentService();
+		List<DepartmentDto> deptList = service.selectList(currentPage, PAGE_SIZE, searchWord);
+		request.setAttribute("deptList", deptList);
+		
+		request.getRequestDispatcher("/WEB-INF/view/dept/list.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
 //		doGet(request, response);
 //	}
 
