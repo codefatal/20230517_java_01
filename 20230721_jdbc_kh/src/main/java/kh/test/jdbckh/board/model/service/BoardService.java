@@ -59,12 +59,21 @@ public class BoardService {
 	public int write(BoardDto dto) {
 		int result = 0;
 		Connection conn = getConnectionKHL();
-		if(dto.getBno() == dto.getBref()) {
+		setAutoCommit(conn, false);
+		if(dto.getBno() == 0){
 			result = dao.insert(conn, dto);
 		} else {
 			result = dao.update(conn, dto);
-			result = dao.insert(conn, dto);			
+			if(result > -1) {				
+				result = dao.insert(conn, dto);			
+			}
 		}
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 	

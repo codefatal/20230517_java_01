@@ -61,7 +61,7 @@ public class BoardDto {
 	
 	@Override
 	public String toString() {
-		return "BoardDto [bno=" + bno + ", btitle=" + btitle + ", bwriteDate=" + bwriteDate
+		return "BoardDto [bno=" + bno + ", btitle=" + btitle + ", bcontent=" + bcontent + ", bwriteDate=" + bwriteDate
 				+ ", mid=" + mid + ", bref=" + bref + ", breLevel=" + breLevel + ", breStep=" + breStep + "]";
 	}
 

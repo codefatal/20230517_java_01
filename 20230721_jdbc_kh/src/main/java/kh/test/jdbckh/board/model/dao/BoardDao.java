@@ -86,8 +86,8 @@ public class BoardDao {
 		System.out.println("[Board dao insert] dto: "+dto);
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = " insert into insert into BOARD values (SEQ_BOARD_BNO.nextval, ?, ?, default, 'kh'";
-		if(dto.getBno() == dto.getBref()) {
+		String query = " insert into BOARD values (SEQ_BOARD_BNO.nextval, ?, ?, default, ?";
+		if(dto.getBno() == 0) {
 			query += ", SEQ_BOARD_BNO.nextval, 0, 0)";
 		} else {
 			query += " , (select BREF from BOARD where BNO=?)";
@@ -96,15 +96,17 @@ public class BoardDao {
 		}
 		try {
 			pstmt = conn.prepareStatement(query);
-			if(dto.getBno() == dto.getBref()) {				
-				pstmt.setInt(1, dto.getBno());
-				pstmt.setString(2, dto.getBtitle());
+			if(dto.getBno() == 0) {				
+				pstmt.setString(1, dto.getBtitle());
+				pstmt.setString(2, dto.getBcontent());
+				pstmt.setString(3, dto.getMid());
 			} else {
-				pstmt.setInt(1, dto.getBno());
-				pstmt.setString(2, dto.getBtitle());				
-				pstmt.setString(3, dto.getBcontent());
+				pstmt.setString(1, dto.getBtitle());
+				pstmt.setString(2, dto.getBcontent());
+				pstmt.setString(3, dto.getMid());				
 				pstmt.setInt(4, dto.getBno());
 				pstmt.setInt(5, dto.getBno());
+				pstmt.setInt(6, dto.getBno());
 			}
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
@@ -117,7 +119,7 @@ public class BoardDao {
 	// 한 행 수정 - BoardDto 또는 경우에 따라서 특정 컬럼값만 받아오기도 함.
 	public int update(Connection conn, BoardDto dto) {
 		System.out.println("[Board dao update] dto: "+dto);
-		int result = 0;
+		int result = -1; // update 경우 0도 정상 결과값일 수 있으므로 -1을 초기값으로 넣어준다.
 		PreparedStatement pstmt = null;
 		String query = " update BOARD set BRE_STEP = BRE_STEP + 1";
 		query += " where BRE_STEP > (select BRE_STEP from BOARD where BNO=?)";

@@ -1,54 +1,45 @@
-<%@page import="kh.test.jdbckh.board.model.dto.BoardDto"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>게시글 목록</title>
+<style>
+	.wrap-flex {
+		display: flex;
+	}
+	
+	.wrap-grid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto;
+	}
+</style>
 </head>
 <body>
 	<h2>게시글</h2>
-	<%
-	// JSP Tag - java문법
-	List<BoardDto> dtoList = (List<BoardDto>)request.getAttribute("BoardList");
-	
-	%>
-	<table border="1">
-		<tr>
-			<td>번호</td>
-			<td>제목</td>
-			<td>작성시간</td>
-		</tr>
-		<%
-		for(int i=0; i<dtoList.size(); i++){
-			BoardDto dto = dtoList.get(i);
-		%>
-		
-		<tr>
-			<td><a href="<%=request.getContextPath()%>/board/get?bno=<%=dto.getBno() %>"><%=dto.getBno() %></a></td>
-			<td><%=dto.getBtitle() %></td>
-			<td><%=dto.getBwriteDate() %></td>
-		</tr>
-
-		<%
-		}
-		%>
-	</table>
-	<div>
-	<%
-		for(int i=1; i<=10; i++) {
-	%>
-			<a href="<%=request.getContextPath() %>/student/list?pageNo=<%=i%>"><span><%=i%></span></a>
-	<%
-		}
-	%>
-	<div>
-		<form action="<%=request.getContextPath() %>/board/list" method="post">
-			<input type="submit" value="글쓰기">
-		</form>
-	</div>
+	<div><a href="<%=request.getContextPath() %>/board/insert">새글등록</a></div>
+	<div class="wrap-grid">
+		<div>번호</div>
+		<div>제목</div>
+		<div>작성자</div>
+		<div>작성일</div>
+		<div>옵션</div>
+		<c:if test="${not empty boardList }">
+			<c:forEach items="${boardList }" var="vo">
+				<div>${vo.bno }</div>
+				<div>
+				<c:forEach begin="1" end="${vo.breLevel }">
+				&#8618;
+				</c:forEach>
+				${vo.btitle }
+				</div>
+				<div>${vo.mid }</div>
+				<div>${vo.bwriteDate }</div>
+				<div><a href="<%=request.getContextPath() %>/board/insert?bno=${vo.bno }">답글</a></div>
+			</c:forEach>
+		</c:if>
 	</div>
 </body>
 </html>
