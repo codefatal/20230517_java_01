@@ -48,10 +48,10 @@ public class JdbcTemplate {
 		return conn;
 	}
 
-	public static void close(Connection con) {
+	public static void close(Connection conn) {
 		try {
-			if(con!=null) {
-				con.close();
+			if(conn!=null) {
+				conn.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
