@@ -1,0 +1,48 @@
+package kh.lclass.test.user.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kh.lclass.test.user.model.dto.UserDTO;
+import kh.lclass.test.user.service.UserService;
+
+/**
+ * Servlet implementation class UserController
+ */
+@WebServlet("/user")
+public class UserController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserController() {
+        super();
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UserService service = new UserService();
+		List<UserDTO> dto = service.selectListUser();
+		
+		request.setAttribute("userList", dto);
+		request.getRequestDispatcher("/WEB-INF/view/user/user.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+}
