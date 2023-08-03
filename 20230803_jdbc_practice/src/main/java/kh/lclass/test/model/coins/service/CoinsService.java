@@ -20,4 +20,21 @@ public class CoinsService {
 		System.out.println("Coins [selectListCoins] return :" + result);
 		return result;
 	}
+	
+	public int coinInsert(String coincode, String coinname) {
+		System.out.println("Coins [coinDelete]");
+		Connection conn = getConnection();
+		int result = dao.coinInsert(conn, coincode, coinname);
+		close(conn);
+		System.out.println("Coins [coinDelete] return : "+result);
+		return result;
+	}
+	
+	public int coinDelete(String coincode) {
+		System.out.println("Coins [coinDelete]");
+		Connection conn = getConnection();
+		int result = dao.coinDelete(conn, coincode);
+		close(conn);
+		return result;
+	}
 }

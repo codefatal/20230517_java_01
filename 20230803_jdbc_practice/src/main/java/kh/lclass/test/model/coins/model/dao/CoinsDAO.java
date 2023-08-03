@@ -38,4 +38,37 @@ public class CoinsDAO {
 		System.out.println("DAO [selectListCoins] return : " + result);
 		return result;
 	}
+	
+	public int coinInsert(Connection conn, String coincode, String coinname) {
+		System.out.println("DAO [coinPlus]");
+		int result = 0;
+		String query = "insert into coins (coincode, coinname) values (?, ?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, coincode);
+			pstmt.setString(2, coinname);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("DAO [coinPlus] return : " + result);
+		return result;
+	}
+	
+	public int coinDelete(Connection conn, String coincode) {
+		int result = 0;
+		String query = "delete from coins where coincode = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, coincode);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

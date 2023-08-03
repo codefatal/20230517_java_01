@@ -7,6 +7,7 @@
 <title>세미 프로젝트</title>
 </head>
 <body>
+
 	<a href="<%=request.getContextPath() %>/user">유저</a>
 	<a href="<%=request.getContextPath() %>/coins">코인</a>
 	<a href="<%=request.getContextPath() %>/prices">코인정보</a>

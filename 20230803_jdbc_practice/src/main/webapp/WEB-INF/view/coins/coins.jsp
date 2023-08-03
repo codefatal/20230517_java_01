@@ -10,6 +10,8 @@
 <title>코인 리스트</title>
 </head>
 <body>
+	<button><a href="<%=request.getContextPath() %>/coins/insert">코인 추가</a></button>
+	<button><a href="<%=request.getContextPath() %>/coins/delete">코인 삭제</a></button>
 	<%
 		List<CoinsDTO> cdto = (List<CoinsDTO>)request.getAttribute("coinsList");
 	%>
