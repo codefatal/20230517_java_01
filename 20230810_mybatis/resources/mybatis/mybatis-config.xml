@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<!-- 대소문자 완전 구분함. null 값 처리 -->
+		<setting name = "jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<!-- <typeAlias type="kh.test.mybatis.department.model.vo" alias="DepartmentVO"/>
+		<typeAlias type="kh.test.mybatis.board.model.vo" alias="BoardDTO"/> -->
+		<typeAlias type="kh.test.mybatis.student.model.vo.StudentVO" alias="StudentVO"/>
+	</typeAliases>
+	<environments default="development1">
+		<environment id="development1">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="kh"/>
+				<property name="password" value="159236"/>
+			</dataSource>
+		</environment>
+		<environment id="development2">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="scott"/>
+				<property name="password" value="tiger"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!-- <mapper resource="mybatis/mappers/department-mapper.xml"/>
+		<mapper resource="mybatis/mappers/board-mapper.xml"/> -->
+		<mapper resource="mybatis/mappers/student-mapper.xml"/>
+	</mappers>
+</configuration>
