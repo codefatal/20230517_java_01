@@ -26,10 +26,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		System.out.println("GET");
+		System.out.println("login GET 진입");
 		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 	}
 
@@ -37,25 +34,20 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("POST");
-		String id = request.getParameter("mid");
-		String pwd = request.getParameter("mpwd");
-		System.out.println(id);
-		System.out.println(pwd);
-		// DB에 저장하러 가기
-		int result = 1; // 0이면 실패, 1이면 성공;
-		if(result>0) {
-		// DB에 id/pwd 일치하는 항목 확인
-		// 메인 화면으로 이동
+		System.out.println("login POST 진입");
+		
+		// DB 확인하고 오기// TODO
+		int result = 1; // 0 이면 로그인실패. 1이면 로그인성공
+		if(result > 0) {
+			// 로그인 성공하면 
+			// 1-메인(/index) 화면으로 이동
 			response.sendRedirect(request.getContextPath()+"/index");
-			
 		} else {
-		// DB에 일치하는 정보가 없다면
-		// 경고창 띄우고 회원가입 화면으로 이동
-		// 경고창 띄우고 로그인으로 이동
-//			alert("아이디 혹은 패스워드가 맞지 않습니다.");
-			response.sendRedirect(request.getContextPath()+"/login");
+			// 로그인 실패하면
+			// 경고창 띄우고 로그인(/login) 화면으로 이동
+			// 경고창 띄우고 메인(/index) 화면으로 이동
 		}
+		
 	}
 
 }

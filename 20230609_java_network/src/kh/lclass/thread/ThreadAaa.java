@@ -1,5 +1,7 @@
 package kh.lclass.thread;
 
+import java.util.Arrays;
+
 public class ThreadAaa implements Runnable {
 
 	@Override

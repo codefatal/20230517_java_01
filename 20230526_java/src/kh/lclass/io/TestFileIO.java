@@ -44,7 +44,6 @@ public class TestFileIO {
 		} finally {
 			try {
 				if(oos !=null) oos.close();
-				if(bos !=null) bos.close();
 				if(fos !=null) fos.close();
 			} catch (IOException e) {
 				e.printStackTrace();

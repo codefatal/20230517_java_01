@@ -1,92 +1,90 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=d, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카페 포스기</title>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        /* 테이블 테두리 및 테두리 중복 제거 */
-        table {
-            border: 1px solid #000;
-            border-collapse: collapse;
-        }
-
-        /* 테이블 내부 테두리 및 박스 내부 빈공간 설정 */
-        tr, td, th {
-            border: 1px solid #000;
-            padding: 5px;
-        }
-
-        /* 텍스트 입력창 테두리 제거 */
-        input {
-            border: none;
-        }
-
-        
-    </style>
+    <link href="/resources/css/reset.css" rel="stylesheet">
+    <!-- style 지정 - 각자 실습 -->
+    <!--  -->
     <script>
-        // loadHeadler 설정
-        // 1. 텍스트 입력창 선택 후 벗어나면 기능 동작
-        // 2. 버튼을 클릭 시 기능 동작
-        // 3. reset 버튼 클릭 시 기능 동작
-        $(loadHeadler);
-        function loadHeadler() {
-            $('input.count').on("blur", cntBlurHeadler);
-            $('[type=button]').on("click", clickEventHeadler);
-            $('[type=reset]').on("click", resetEventHeadler);
-        }
-        
-        // 텍스트 입력창 선택 후 벗어날 시 기능이 동작하는 함수
-        // $count = 현재 텍스트 입력창 value값 저장
-        // $price = 상위 요소 이동 후 해당 요소의 이전 요소로 이동 후 해당 요소의 텍스트값 저장
-        // $sum = 상위 요소 이동 후 해당 요소의 다음 요소로 이동 후 해당 요소의 하위 요소로 이동해서 그 요소의 value값을 $count * $price 값으로 변경
-        function cntBlurHeadler(event) {
-            $count = Number($(this).val());
-            $price = $(this).parent().prev().text();
-            $sum = $(this).parent().next().children().attr('value', $count * $price);
-        }
-        
-        // 버튼 클릭 시 기능이 동작하는 함수
-        // 값을 저장할 변수 2개 설정
-        // input.count 클래스의 모든 value값을 $sumCount에 더하기
-        // input.sum 클래스의 모든 value값을 $sumPrice에 더하기
-        // input.sumCount value에 $sumCount값으로 변경
-        // input.sumPrice value에 $sumPrice값으로 변경
-        function clickEventHeadler() {
-            $sumCount = 0;
-            $sumPrice = 0;
-            $('input.count').each(function() {
-                if(!isNaN($(this).val())) {
-                    $sumCount += parseInt($(this).val());
-                }
-            });
-            
-            $('input.sum').each(function() {
-                if(!isNaN($(this).val())) {
-                    $sumPrice += parseInt($(this).val());
-                }
-            });
-            $('input.sumCount').attr('value', $sumCount);
-            $('input.sumPrice').attr('value', $sumPrice);
+        $(loadedHandler);
+        function loadedHandler(){
+            // event 등록 
+            //$('.c').on("blur", cntBlurHandler);
+            $("[type=button]").on("click", calcClickHandler);
         }
 
-        // reset 시 input 태그의 value값 제거
-        function resetEventHeadler() {
-            $('input').attr('value', '');
+        // 각종 기능 함수들
+        function cntBlurHandler(e){
+            // 메뉴마다 합계가격
+            $(this).parent().next().children('input.p').val(
+                $(this).parent().prev().text() * $(this).val()  );
+            updateTotal();
         }
+        function calcClickHandler(e){
+            $(".c.in").each(function(idx, item){
+                //this = item
+                console.log(item);
+                // 메뉴마다 합계가격
+                $(this).parent().next().children('input.p').val(
+                    $(this).parent().prev().text() * $(this).val()  );
+            });
+            updateTotal();
+        }
+
+        function updateTotal(){
+            var sum = 0;
+            // 메뉴 총 개수 합계 
+            $(".c.in").each(function (idx, item){
+                // each - for문은 대신함. event에 handler 를 등록함
+                // each function 에서의 this사용시 위 this와 헛갈림. 
+                //console.log(price);
+                // item = this 
+                console.log(item);
+                //if(idx != ($(".c").length-1)){
+                    var i = Number($(item).val());
+                    if (isNaN(i)){
+                        i = 0;
+                    }
+                    sum += i;
+                //}
+            });
+            console.log(sum);
+            $("#cTotalCnt").val(sum);
+
+            sum = 0;
+            // 합계 
+            $(".p").each(function (idx, item){
+                console.log(item);
+                if(idx != ($(".p").length-1)){
+                    // Number() 대신 * 1 로 숫자형태변경
+                    var i = $(item).val() * 1;
+                    if (isNaN(i)){
+                        i = 0;
+                    }
+                    sum += i;
+                }
+            });
+            console.log(sum);
+            $("#cTotalPrice").val(sum);
+        }
+        // each경우 event handler 처럼 함수형태 만들어서 사용하지 않음 - 권장
+        // var globalValueSum = 0;
+        // function cTotalCntHandler(idx){
+        //     //console.log(price);
+        //     // item = this 
+        //     console.log(this);
+        //     globalValueSum += $(this).val();
+        // }
     </script>
 </head>
 <body>
+당신이 요청한 n1의 값 <%= request.getParameter("n1") %> 응답은 아래와 같습니다.
     <form>
-        <table>
+        <table border="1">
             <tr>
                 <th>메뉴</th>
                 <th>가격</th>
@@ -95,31 +93,38 @@
             </tr>
             <tr>
                 <td>아메리카노</td>
-                <td class="price">2500</td>
-                <td class="count"><input type="text" class="count"></td>
-                <td class="sum"><input type="text" class="sum" readonly></td>
+                <td>2500</td>
+                <td><input type="text" name="c1" class="c in"></td>
+                <td><input type="text" name="c1Price" class="p" readonly></td>
             </tr>
             <tr>
-                <td>카페라떼</td>
-                <td class="price">3000</td>
-                <td class="count"><input type="text" class="count"></td>
-                <td class="sum"><input type="text" class="sum" readonly></td>
+                <td>라떼</td>
+                <td>3000</td>
+                <td><input type="text" name="c2" class="c in"></td>
+                <td><input type="text" name="c2Price" class="p" readonly></td>
             </tr>
             <tr>
-                <td>홍차라떼</td>
-                <td class="price">5000</td>
-                <td class="count"><input type="text" class="count"></td>
-                <td class="sum"><input type="text" class="sum" readonly></td>
+                <td>생강라떼</td>
+                <td>4500</td>
+                <td><input type="text" name="c3" class="c in"></td>
+                <td><input type="text" name="c3Price" class="p" readonly></td>
             </tr>
             <tr>
-                <th colspan="2">합계</th>
-                <td class="sumCount"><input type="text" class="sumCount" readonly></td>
-                <td class="sumPrice"><input type="text" class="sumPrice" readonly></td>
+                <td>딸기바나나라떼</td>
+                <td>4500</td>
+                <td><input type="text" name="c4" class="c in"></td>
+                <td><input type="text" name="c4Price" class="p" readonly></td>
+            </tr>
+            <tr>
+                <th>합계</th>
+                <th></th>
+                <th><input type="text" name="cTotalCnt" id="cTotalCnt" class="c" readonly></th>
+                <th><input type="text" name="cTotalPrice" id="cTotalPrice" class="p" readonly></th>
             </tr>
             <tr>
                 <td colspan="4">
-                    <button type="reset">초기화</button>
-                    <button type="button" class="btnAdd">계산하기</button>
+                    <input type="button" value="계산하기">
+                    <input type="reset" >
                 </td>
             </tr>
         </table>

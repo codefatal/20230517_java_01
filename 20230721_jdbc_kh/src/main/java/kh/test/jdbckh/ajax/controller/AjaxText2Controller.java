@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kh.test.jdbckh.department.model.dto.DepartmentDto;
 import kh.test.jdbckh.department.model.service.DepartmentService;
@@ -26,28 +27,13 @@ import kh.test.jdbckh.professor.model.vo.Professor;
 public class AjaxText2Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AjaxText2Controller() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ajax2 doGet");
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ajax2 doPost");
 		List<DepartmentDto> deptList = new DepartmentService().selectList();
-		List<Professor> professorList= new ProfessorService().selectList();
+		List<Professor> professorList = new ProfessorService().selectList();
 		int startPage = 2;
 		int endPage = 4;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -55,12 +41,14 @@ public class AjaxText2Controller extends HttpServlet {
 		map.put("profList", professorList);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
-		Gson gson = new Gson();
-//		String gsonDeptList = gson.toJson(deptList);
-//		System.out.println(gsonDeptList);
 		
-		PrintWriter out = response.getWriter();
+		Gson gson =  new Gson();
+		//String gsonDeptList = gson.toJson(deptList);
+		//System.out.println(gsonDeptList);
 		System.out.println(gson.toJson(map));
+		PrintWriter out = response.getWriter();
+		//out.append("{\"k1\":\"abc\",\"k2\":\"12\"}");
+//		out.print(gson.toJson(deptList));
 		out.print(gson.toJson(map));
 		out.flush();
 		out.close();

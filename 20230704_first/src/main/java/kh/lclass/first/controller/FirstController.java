@@ -20,21 +20,26 @@ public class FirstController extends HttpServlet {
     public FirstController() {
         super();
     }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 한글 문자 깨짐 방지
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		// 테스트 방법은 브라우저 url에 127.0.0.1:8090/20230704_first/first?n1=v1
-//		System.out.println(request.getParameter("n1"));
-//		response.getWriter().append("<h1>당신은 n1에 " + request.getParameter("n1") + "에 대한 요청을 하셨군요.</h1> \n 그 대답은");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		// 테스트 방법은 브라우저 url에 127.0.0.1:8090/20230704_first/first?n1=v1 입력하고 request함
+		System.out.println(request.getParameter("n1"));
+//		response.getWriter().append("<!DOCTYPE html>");
+//		response.getWriter().append("<html lang=\"en\">");
+//		response.getWriter().append("<head>");
+//		//... 위 코드처럼 
+//		response.getWriter().append("<h1>당신은 n1에 "+ request.getParameter("n1")+"에 대한 요청을 하셨군요.</h1> 그 대답은 ");
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		// js document.write("");
-		request.getRequestDispatcher("/20230630_UI구현_01_js_cafe.jsp").forward(request, response);
+		request.getRequestDispatcher("test.jsp").forward(request, response);
 	}
 
 	/**

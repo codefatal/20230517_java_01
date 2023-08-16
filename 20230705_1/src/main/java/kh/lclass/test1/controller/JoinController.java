@@ -26,10 +26,7 @@ public class JoinController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		System.out.println("GET");
+		System.out.println("여기 Get 들어왔음!!!");
 		request.getRequestDispatcher("/WEB-INF/view/join.jsp").forward(request, response);
 	}
 
@@ -37,29 +34,26 @@ public class JoinController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("POST");
+		System.out.println("여기 POST 들어왔음!!!");
 		String id = request.getParameter("mid");
 		String pwd = request.getParameter("mpwd");
-		System.out.println(id);
-		System.out.println(pwd);
-		// DB에 저장하러 가기
-		int result = 1; // 0이면 실패, 1이면 성공;
-		if(result>0) {
-		// DB에 잘 저장했다면
-		// 로그인 화면으로 이동
+		System.out.println("id:"+id);
+		System.out.println("pwd:"+pwd);
+		// DB에 저장함 // TODO
+		int result = 1; // 0 이면 저장실패. 1이면 저장성공
+		
+		if(result > 0) {
+			// DB에 잘 저장했다면
+			// 1-메인 화면으로 이동
+			// 2-로그인 화면으로 이동
+			// .jsp 열어주는 것이 아님. url을 /login으로 이동함.
+			// 오류 !!! response.sendRedirect("/login");  // 오류
 			response.sendRedirect(request.getContextPath()+"/login");
-			
 		} else {
-		// DB에 저장하지 못했다면
-		// 경고창 띄우고 회원가입 화면으로 이동
-		// 경고창 띄우고 메인화면으로 이동
-			response.sendRedirect(request.getContextPath()+"/index");
+			// DB에 저장하지 못했다면
+			// 경고창 띄우고 회원가입 화면으로 이동
+			// 경고창 띄우고 메인 화면으로 이동
 		}
-		
-		
-		
-		
 	}
 
 }

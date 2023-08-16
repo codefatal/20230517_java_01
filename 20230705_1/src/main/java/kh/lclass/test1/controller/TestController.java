@@ -26,9 +26,9 @@ public class TestController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		response.setCharacterEncoding("utf-8");
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		//response 를  WEB-INF/index.jsp 파일로 해줘
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
@@ -36,8 +36,6 @@ public class TestController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

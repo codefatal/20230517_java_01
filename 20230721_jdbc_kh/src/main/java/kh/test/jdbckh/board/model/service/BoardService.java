@@ -10,10 +10,13 @@ import java.sql.Connection;
 import java.util.List;
 
 import kh.test.jdbckh.board.model.dao.BoardDao;
+import kh.test.jdbckh.board.model.dto.AttachFileDto;
 import kh.test.jdbckh.board.model.dto.BoardDto;
+import kh.test.jdbckh.member.model.dao.MemberDao;
 
 public class BoardService {
 	private BoardDao dao = new BoardDao();
+	private MemberDao mdao = new MemberDao();
 	
 	public List<BoardDto> selectList(){
 		List<BoardDto> result = null;
@@ -27,20 +30,32 @@ public class BoardService {
 		BoardDto result = null;
 		Connection conn = getConnection();
 		result = dao.selectOne(conn, bno);
+		if(result != null) {
+			// 첨부파일들 읽어서 result에 넣기
+			List<AttachFileDto> fileList = dao.selectAttachFileList(conn, bno);
+			result.setAttachFileList(fileList);
+		}
 		close(conn);
 		return result;
 	}
 	// 한 행 삽입 - BoardDto 자료형을 받아와야 함.
-	public int insert(BoardDto dto){
+	public int insert(BoardDto dto, List<AttachFileDto> fileList){
 		int result = 0;
 		Connection conn = getConnection();
 		setAutoCommit(conn, false);
+		int nextval = dao.getSeqBoardBnoNexVal(conn);
 		if(dto.getBno() == 0) { // 원본글작성
-			result = dao.insert(conn, dto);
+			result = dao.insert(conn, dto, nextval);
+			if(fileList!=null && fileList.size()>0) {
+				result = dao.insertAttachFileList(conn, fileList, nextval);
+			}
 		}else {   // 답글작성
 			result = dao.update(conn, dto);
 			if(result > -1) {
-				result = dao.insert(conn, dto);
+				result = dao.insertReply(conn, dto, nextval);
+			}
+			if(fileList!=null && fileList.size()>0) {
+				result = dao.insertAttachFileList(conn, fileList, nextval);
 			}
 		}
 		if(result > 0) {

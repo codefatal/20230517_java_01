@@ -5,20 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
 <body>
 	<h1>로그인</h1>
-	<div>		
+	<div>
 		<form action="<%=request.getContextPath() %>/login" method="post">
 			<table>
 				<tr>
 					<th>아이디</th>
-					<td><input type="text" name="mid" required></td>
+					<td><input type="text" name="mid"></td>
 				</tr>
 				<tr>
 					<th>패스워드</th>
-					<td><input type="password" name="mpwd" required></td>
+					<td><input type="password" name="mpwd"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="로그인"></td>
@@ -26,5 +25,6 @@
 			</table>
 		</form>
 	</div>
+
 </body>
 </html>

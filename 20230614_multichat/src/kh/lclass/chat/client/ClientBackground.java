@@ -6,70 +6,91 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class ClientBackground {
-	private Socket socket; // 필드는 따로 close 안해줘도 됨. disconnection() 메소드를 운영하거나 가비지 컬렉션을 이용한다.
+	private Socket socket; // 필드는 따로 close 안해줘도 됨. disconnection() 메소드를 운영하거나 garbage collection 에 의해 close 될 예정임.
 	private BufferedReader br;
 	private BufferedWriter bw;
 	private String nickname;
-	private ClientGUI gui; //null // = new 하면 안됨.
-	
-	// client가 server에 접속
-	public void connection(String ip) {
+	private ClientGUI gui; //null //= new 하면 안됨. 
+
+	// client가 서버와 접속 끊기
+	public void disconnection() {
 		try {
-			socket = new Socket(ip, 7777);
+			if(socket != null) {
+				socket.close();
+			}
+		}catch (Exception e) {
+		}
+	}
+
+	// client가 서버에 접속 -  
+	public void connection() {
+		try {
+			// 서버와 연결
+			socket = new Socket("127.0.0.1", 7777);
 			// 서버와 입/출력 통로 생성
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-			bw.write(nickname+"\n");
+			// 접속되면 바로 나의 nickname 전송
+			System.out.println("[ejkim]-2"+nickname);
+			bw.write(nickname + "\n");
 			bw.flush();
 			
-			// server와 입력 통로가 끊어지지 않는다면 계속 반복 확인 함. 
+			// server와 입력 통로가 끊어지지 않았다면 계속 반복확인함.
 			// server에서 수신받은 msg
-			while(br!=null) {
+			while(br != null) {
 				String msg = br.readLine();
 				gui.appendMsg(msg);
 			}
 		} catch (UnknownHostException e) {
-			gui.appendMsg("존재하지 않는 서버입니다.");
-		} catch (SocketException e) {
-			gui.appendMsg("서버와 연결이 끊어졌습니다.");
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
-	
-	// client가 server와 접속 끊기
-	public void disconnection() {
+	public void sendMessage(String msg) {
+		// server에 msg 전달 
 		try {
-			if(socket!=null) {
-				socket.close();
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendMsg(String msg) {
-		try {
-			bw.write(msg+"\n");
+			System.out.println("[ejkim]-3"+nickname);
+			bw.write(nickname+":"+msg+ "\n");
 			bw.flush();
+			//gui.appendMsg(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	// 닉네임 setter
-	public void setNickname(String nickname) {
+	public void setNickname(String nickName) {
+		System.out.println("[ejkim]-4"+nickName);
 		this.nickname = nickname;
 	}
-	
-	// ClientGUI setter
+	// private ClientGUI gui;
 	public void setGui(ClientGUI gui) {
 		this.gui = gui;
 	}
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
