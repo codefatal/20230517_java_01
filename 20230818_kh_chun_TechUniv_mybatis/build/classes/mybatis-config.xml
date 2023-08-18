@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<typeAliases>
+		<typeAlias type="kh.chun.techuniv.mybatis.student.model.dto.StudentDTO" alias="StudentDTO"/>
+	</typeAliases>
+	<environments default="aaa">
+		<environment id="aaa">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="kh"/>
+				<property name="password" value="159236"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mybatis/mappers/student-mapper.xml"/>
+		<!-- <mapper resource="mybatis/mappers/department-mapper.xml"/>
+		<mapper resource="mybatis/mappers/class-mapper.xml"/>
+		<mapper resource="mybatis/mappers/classProfessor-mapper.xml"/>
+		<mapper resource="mybatis/mappers/professor-mapper.xml"/>
+		<mapper resource="mybatis/mappers/grade-mapper.xml"/> -->
+	</mappers>
+</configuration>

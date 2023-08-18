@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board1">
+
+	<resultMap type="BoardDto" id="resultMap3">
+		<!-- id는 주로 PK 컬럼을 작성. 그외 result에 작성 -->
+		<!-- collection / association 사용된 경우 id 반드시 사용. 중요 -->
+		<id property="bno" column="bno"/>
+		<result property="btitle" column="btitle"/>
+		<result property="bcontent" column="bcontent"/>
+		<result property="bwriteDate" column="bwrite_date"/>
+		<result property="mid" column="mid"/>
+		<result property="bref" column="bref"/>
+		<result property="breLevel" column="bre_level"/>
+		<result property="breStep" column="bre_step"/>
+		<collection property="attachFileList" ofType="kh.test.jdbckh.board.model.dto.AttachFileDto">
+			<result property="filepath" column="filepath"/>
+		</collection>
+	</resultMap>
+
+	<!-- resultType="DepartmentDto2" 이렇게 사용 불가. 컬럼명과 필드명이 다름. -->
+	<select id="selectList0" resultMap="resultMap3">
+		SELECT bno, btitle, bcontent, bwrite_date, mid, bref, bre_level, bre_step, filepath 
+		FROM BOARD tb join attach_file ta using (bno)
+	</select>
+	
+</mapper>
