@@ -3,6 +3,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="kh.chun.techuniv.mybatis.student.model.dto.StudentDTO" alias="StudentDTO"/>
+		<typeAlias type="kh.chun.techuniv.mybatis.department.model.dto.DepartmentDTO" alias="DepartmentDTO"/>
+		<typeAlias type="kh.chun.techuniv.mybatis.classes.model.dto.ClassesDTO" alias="ClassesDTO"/>
 	</typeAliases>
 	<environments default="aaa">
 		<environment id="aaa">
@@ -17,9 +19,9 @@
 	</environments>
 	<mappers>
 		<mapper resource="mybatis/mappers/student-mapper.xml"/>
-		<!-- <mapper resource="mybatis/mappers/department-mapper.xml"/>
+		<mapper resource="mybatis/mappers/department-mapper.xml"/>
 		<mapper resource="mybatis/mappers/class-mapper.xml"/>
-		<mapper resource="mybatis/mappers/classProfessor-mapper.xml"/>
+		<!-- <mapper resource="mybatis/mappers/classProfessor-mapper.xml"/>
 		<mapper resource="mybatis/mappers/professor-mapper.xml"/>
 		<mapper resource="mybatis/mappers/grade-mapper.xml"/> -->
 	</mappers>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="classMapper">
+	<resultMap type="ClassesDTO" id="resultMap">
+		<id property="classNo" column="CLASS_NO"/>
+		<result property="departmentNo" column="DEPARTMENT_NO"/>
+		<result property="preattendingClassNo" column="PREATTENDING_CLASS_NO"/>
+		<result property="className" column="CLASS_NAME"/>
+		<result property="classType" column="CLASS_TYPE"/>
+	</resultMap>
+	<select id="selectList" resultMap="resultMap">
+		select * from tb_class
+	</select>
+	<select id="selectOne" resultMap="resultMap" parameterType="string">
+		select * from tb_class
+		where class_no = #{classNo}
+	</select>
+</mapper>
